@@ -2,23 +2,17 @@ import cv2 as cv
 import numpy as np
 
 img = cv.imread("/Users/local/PycharmProjects/curve/IMG_4812.jpg")
-imgheight = img.shape[0]
-
-slice_height = imgheight//3
-
-slice1 = img[imgheight-slice_height:imgheight,]
-slice2 = img[imgheight-2*slice_height:imgheight-slice_height,]
-slice3 = img[imgheight-3*slice_height:imgheight-2*slice_height,]
-cv.imshow("img", slice1)
-
-cv.waitKey(0)
-
-cv.imshow("img", slice2)
-
-cv.waitKey(0)
-
-cv.imshow("img", slice3)
-
-cv.waitKey(0)
-cv.destroyAllWindows()
+grayed = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+width = img.shape[0]
+height = img.shape[1]
+for y in range(height-1):
+    check = False
+    startx = 0
+    for x in range(width-1):
+        if (grayed[x][y] < 100 and check == False):
+            startx = x
+        elif(grayed[x][y] < 100 and check == True):
+            cv.line(grayed, pt1=(startx, y), pt2=(x, y), color=0, thickness=3)
+cv.imshow('hi', grayed)
+cv.waitKey()
 
