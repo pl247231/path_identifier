@@ -1,6 +1,6 @@
 import cv2 as cv
 
-img = cv.imread("/Users/local/PycharmProjects/curve/IMG-4839.jpg")
+img = cv.imread("/Users/local/PycharmProjects/curve/IMG_1.jpg")
 grayed = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 height = img.shape[0]-1
 width = img.shape[1]-1
@@ -38,8 +38,8 @@ second_x = midpoints[-1][0]
 slope = (midpoints[-1][1]-midpoints[-2][1])/(midpoints[-1][0]- midpoints[-2][0])
 if(slope < 0):
     slice_width = (width - midpoints[-1][0]) // 10
-    for i in range(2, 10):
-        x = second_x + slice_width * (i + 1)
+    for i in range(3, 10):
+        x = second_x + slice_width * i
         check1 = False
         check2 = False
         for y in range(height):
@@ -57,8 +57,8 @@ if(slope < 0):
             midpoints.append((x, mid))
 else:
     slice_width = midpoints[-1][0]// 10
-    for i in range(2, 10):
-        x = second_x - slice_width * (i + 1)
+    for i in range(3, 10):
+        x = second_x - slice_width * i
         check1 = False
         check2 = False
         for y in range(height):
