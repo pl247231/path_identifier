@@ -9,8 +9,6 @@ slice_height = height//15
 midpoints = []
 thresh = 60
 im_bw = cv.threshold(grayed, thresh, 255, cv.THRESH_BINARY)[1]
-cv.imshow("img", im_bw)
-cv.waitKey()
 for j in range(14):
     y = height-j*slice_height
     check1 = False
@@ -80,3 +78,4 @@ for i in range(len(midpoints) - 1):
 
 cv.imshow('hi', img)
 cv.waitKey()
+
