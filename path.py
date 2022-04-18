@@ -9,26 +9,25 @@ height = img.shape[0]-1
 width = img.shape[1]-1
 slice_height = height//16
 midpoints = []
-
 thresh = 20
 im_bw = cv.threshold(blurred, thresh, 255, cv.THRESH_BINARY)[1]
-
+cv.imwrite("/Users/local/Downloads/joe2.jpg", im_bw)
 for j in range(15):
     y = height-j*slice_height
     check1 = False
     check2 = False
 
-    for x in range(5*width//8):
+    for x in range(width):
         if(im_bw[y,x] > 40):
             startx = x
             check1 = True
             break
-    for x in range(5*width//8):
+    for x in range(width):
         if im_bw[y,width-x] > 40:
             endx = width-x
             check2 = True
             break
-    if(check1 and check2):
+    if(check1 and check2 and abs(startx-endx) > 100):
         mid = (startx+endx)//2
         midpoints.append((mid,y))
     else:
@@ -55,7 +54,7 @@ if(slope < 0):
                 endy = height - y
                 check2 = True
                 break
-        if (check1 and check2):
+        if (check1 and check2 and abs(starty-endy) > 100):
             mid = (starty + endy) // 2
             midpoints.append((x, mid))
 else:
@@ -74,12 +73,11 @@ else:
                 endy = height - y
                 check2 = True
                 break
-        if (check1 and check2):
+        if (check1 and check2 and abs(starty-endy) > 100):
             mid = (starty + endy) // 2
             midpoints.append((x, mid))
 for i in range(len(midpoints) - 1):
     cv.arrowedLine(img = img, pt1 = midpoints[i], pt2 = midpoints[i+1], thickness = 5, color = (0,255 ,0))
-
 cv.imshow('hi', img)
 cv.waitKey()
 
